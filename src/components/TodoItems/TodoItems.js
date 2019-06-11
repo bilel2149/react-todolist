@@ -1,28 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './TodoItems.css'
 
 const TodoItems = (props) => {
 
-  const {items} = props;
-  const ListItems = items.map(item => {
-    return (
-      <tr key={item.id}>
-        <td>{item.name}</td>
-        <td>{item.age}</td>
-        <td>&times;</td>
-      </tr>
-    )
-  })
+  const {items, deleteItem} = props;
+  let length = items.length;
+  const ListItems = length ? (
+    items.map(item => {
+      return (
+        <tr key={item.id}>
+          <td>{item.name}</td>
+          <td>{item.age}</td>
+          <td><span onClick={() => deleteItem(item.id)}>&times;</span></td>
+        </tr>
+      )
+    })
+  ) : (
+    <tr>
+      <td colSpan="3">Aucun element à afficher</td>
+    </tr>
+  )
 
     return (
       <div className="todoitems">
         <table className="table"> 
-          <thead>
-            <th>Nom</th>
-            <th>Age</th>
-            <th>Action</th>
-          </thead>
           <tbody>
+            <tr>
+              <td>Nom</td>
+              <td>Age</td>
+              <td>Action</td>
+            </tr>
             {ListItems}
           </tbody>
         </table>
